@@ -25,20 +25,20 @@ namespace TCResourceVerifier
 			foreach (IWidget widget in widgets)
 			{
 				IEnumerable<string> tokens = LanguageTokenParser.Parse(widget.ContentScript);
-				ParseContentScript(problems, widget, widget, tokens);
+				VerifyLanguageTokens(problems, widget, widget, tokens);
 				foreach (
 					IWidgetDependencyFile dependencyFile in
 						widget.DependencyFiles.Where((df) => df.WidgetFileType == WidgetFileType.VelocityFile))
 				{
 					string vmFile = File.ReadAllText(dependencyFile.FullPath);
 					IEnumerable<string> dependencyTokens = LanguageTokenParser.Parse(vmFile);
-					ParseContentScript(problems, widget, dependencyFile, dependencyTokens);
+					VerifyLanguageTokens(problems, widget, dependencyFile, dependencyTokens);
 				}
 			}
 			return problems;
 		}
 
-		private static void ParseContentScript(Dictionary<IWidgetFile, Dictionary<string, MissingResourceInfo>> problems,
+		private static void VerifyLanguageTokens(Dictionary<IWidgetFile, Dictionary<string, MissingResourceInfo>> problems,
 		                                       IWidget parent,
 		                                       IWidgetFile widget,
 		                                       IEnumerable<string> tokens)
