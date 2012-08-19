@@ -46,8 +46,8 @@ namespace TCResourceVerifier
 			var resultList = new List<IWidget>();
 			var files =
 				new List<string>(_fileSystemService.EnumerateFileSystemEntries(_rootFolderName,
-																									"*.xml",
-																									SearchOption.TopDirectoryOnly));
+				                                                               "*.xml",
+				                                                               SearchOption.TopDirectoryOnly));
 
 			foreach (string file in files)
 			{
@@ -73,48 +73,20 @@ namespace TCResourceVerifier
 					XElement widgetElement = xElement.Element("scriptedContentFragment");
 					if (widgetElement != null)
 					{
-						widget = new Widget { WidgetFileType = WidgetFileType.WidgetDefinition, FileName = fileInfo.Name };
+						widget = new Widget {WidgetFileType = WidgetFileType.WidgetDefinition, FileName = fileInfo.Name};
 
-						XAttribute nameAttr = widgetElement.Attribute("name");
-						if (nameAttr != null)
-						{
-							widget.Name = nameAttr.Value;
-						}
-						XAttribute desctAttr = widgetElement.Attribute("description");
-						if (desctAttr != null)
-						{
-							widget.Description = desctAttr.Value;
-						}
-
-						XAttribute guidAttr = widgetElement.Attribute("instanceIdentifier");
-						if (guidAttr != null)
-						{
-							widget.InstanceIdentifier = new Guid(guidAttr.Value);
-						}
-
-						LoadLanguages(widget, widgetElement);
-
+						//load widget contentScript section's content
 						XElement elementContentScript = widgetElement.Element("contentScript");
 						if (elementContentScript != null)
 						{
 							widget.ContentScript = elementContentScript.Value;
 						}
 
-						//read dependencies and parse VM files
-						string dependencyPath = string.Format("{0}\\{1}\\",
-																		  fileInfo.DirectoryName,
-																		  widget.InstanceIdentifier.ToString("N"));
-						if (_fileSystemService.DirectoryExists(dependencyPath))
-						{
-							IEnumerable<string> dependencies = _fileSystemService.EnumerateFileSystemEntries(dependencyPath,
-																																		"*",
-																																		SearchOption.TopDirectoryOnly);
-							foreach (string dependencyFile in dependencies)
-							{
-								IWidgetDependencyFile dependency = ProcessDependency(widget, dependencyFile);
-								widget.DependencyFiles.Add(dependency);
-							}
-						}
+						LoadInfoFromHeader(widgetElement, widget);
+
+						LoadLanguages(widget, widgetElement);
+
+						LoadDependenices(widget, fileInfo);
 					}
 				}
 				catch (Exception e)
@@ -130,6 +102,47 @@ namespace TCResourceVerifier
 				}
 			}
 			return widgetsInFile;
+		}
+
+		private void LoadDependenices(Widget widget, FileInfo fileInfo)
+		{
+			//read dependencies and parse VM files
+			string dependencyPath = string.Format("{0}\\{1}\\",
+			                                      fileInfo.DirectoryName,
+			                                      widget.InstanceIdentifier.ToString("N"));
+
+			if (!_fileSystemService.DirectoryExists(dependencyPath))
+			{
+				return;
+			}
+			IEnumerable<string> dependencies = _fileSystemService.EnumerateFileSystemEntries(dependencyPath,
+			                                                                                 "*",
+			                                                                                 SearchOption.TopDirectoryOnly);
+			foreach (string dependencyFile in dependencies)
+			{
+				IWidgetDependencyFile dependency = ProcessDependency(widget, dependencyFile);
+				widget.DependencyFiles.Add(dependency);
+			}
+		}
+
+		private static void LoadInfoFromHeader(XElement widgetElement, Widget widget)
+		{
+			XAttribute nameAttr = widgetElement.Attribute("name");
+			if (nameAttr != null)
+			{
+				widget.Name = nameAttr.Value;
+			}
+			XAttribute desctAttr = widgetElement.Attribute("description");
+			if (desctAttr != null)
+			{
+				widget.Description = desctAttr.Value;
+			}
+
+			XAttribute guidAttr = widgetElement.Attribute("instanceIdentifier");
+			if (guidAttr != null)
+			{
+				widget.InstanceIdentifier = new Guid(guidAttr.Value);
+			}
 		}
 
 		private IWidgetDependencyFile ProcessDependency(IWidgetFile parent, string path)
