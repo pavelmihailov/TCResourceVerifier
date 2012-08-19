@@ -1,0 +1,43 @@
+﻿<Window x:Class="Grabrus.TC.ResourceVerifier.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Velocity Resource Reference Verifier" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel  Grid.Row="3"  Orientation="Horizontal">
+            <Button Content="Select Folder" Height="23" HorizontalAlignment="Left" Margin="3,6" Name="btnSelectFolder" VerticalAlignment="Top" Width="120" Click="OnCLickBtnSelectFolder" />
+            <Button Content="Verify Folder" Height="23" HorizontalAlignment="Left" Margin="3,6" Name="btnVerify" VerticalAlignment="Top" Width="120" Click="OnClickBtnVerify"/>
+        </StackPanel>
+        <DataGrid
+            Grid.Row="0"
+            AutoGenerateColumns="False" HorizontalAlignment="Stretch" 
+                  Margin="0,0,0,0"
+            SelectionMode="Single"
+                  IsReadOnly="True"
+                  Name="problemsGrid" VerticalAlignment="Stretch" SelectionChanged="OnSelectedProblemSelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="InstanceIdentifier" Binding="{Binding InstanceIdentifier}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="FileName" Binding="{Binding FileName}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <GridSplitter Grid.Row="1" ResizeDirection="Rows" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="6" Width="Auto"/>
+        <DataGrid
+            Grid.Row="2"
+            AutoGenerateColumns="False" HorizontalAlignment="Stretch" 
+                  Margin="0,0,0,0"
+                  IsReadOnly="True"
+                  Name="detailsGrid" VerticalAlignment="Stretch">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Language" Binding="{Binding LanguageName}"/>
+                <DataGridTextColumn Header="FileName" Binding="{Binding FileName}"/>
+                <DataGridTextColumn Header="Resource Name" Binding="{Binding ResourceName}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
