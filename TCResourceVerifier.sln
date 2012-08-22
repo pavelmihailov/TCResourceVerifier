@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCResourceVerifierApp", "TC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCResourceVerifier", "TCResourceVerifier\TCResourceVerifier.csproj", "{6BD82076-44F9-4395-A1D0-05BB10CAA5AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCResourceVerifierConsole", "TCResourceVerifierConsole\TCResourceVerifierConsole.csproj", "{1DC99A00-6C2B-4BD4-A3A2-C8ED58CA7EAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{6BD82076-44F9-4395-A1D0-05BB10CAA5AE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6BD82076-44F9-4395-A1D0-05BB10CAA5AE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6BD82076-44F9-4395-A1D0-05BB10CAA5AE}.Release|x86.ActiveCfg = Release|Any CPU
+		{1DC99A00-6C2B-4BD4-A3A2-C8ED58CA7EAC}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{1DC99A00-6C2B-4BD4-A3A2-C8ED58CA7EAC}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{1DC99A00-6C2B-4BD4-A3A2-C8ED58CA7EAC}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{1DC99A00-6C2B-4BD4-A3A2-C8ED58CA7EAC}.Debug|x86.ActiveCfg = Debug|x86
+		{1DC99A00-6C2B-4BD4-A3A2-C8ED58CA7EAC}.Debug|x86.Build.0 = Debug|x86
+		{1DC99A00-6C2B-4BD4-A3A2-C8ED58CA7EAC}.Release|Any CPU.ActiveCfg = Release|x86
+		{1DC99A00-6C2B-4BD4-A3A2-C8ED58CA7EAC}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{1DC99A00-6C2B-4BD4-A3A2-C8ED58CA7EAC}.Release|Mixed Platforms.Build.0 = Release|x86
+		{1DC99A00-6C2B-4BD4-A3A2-C8ED58CA7EAC}.Release|x86.ActiveCfg = Release|x86
+		{1DC99A00-6C2B-4BD4-A3A2-C8ED58CA7EAC}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
